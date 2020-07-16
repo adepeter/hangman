@@ -49,12 +49,12 @@ unscramble_secret = to_list(secret_text)
 print('\n'.join(["---welcome to my hangman game---", "Please proceed with your name"]))
 
 print()
-username = input("Enter your name here pls: ")
+username = input("Enter your name here please: ")
 
 print()
 
 print(f"The length of the secret letter you are about to \
-guess is %d long and you have a total of 10\
+guess is %d long and you have a total of 10 \
 trials before the game ends." % len(secret_text))
 
 print(f"Below is the obfuscated text {secret_text}")
