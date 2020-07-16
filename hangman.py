@@ -27,7 +27,7 @@ def get_random_word() -> str:
     return random.choice(secret_words)
 
 
-def obfuscate_secret(secret_word: str, give_hint: bool=True, replacer: str="*") -> str:
+def obfuscate_secret(secret_word: str, give_hint=False, replacer: str="*") -> str:
     """Use random module to strip out some letters from secret word.
     Returns an obfuscated word
     which hidden characters can be replaced in replacer parameter
@@ -35,11 +35,11 @@ def obfuscate_secret(secret_word: str, give_hint: bool=True, replacer: str="*") 
     Or totally hidden.
     """
     rand = random.randint(1, len(secret_word))
-    secret_word = len(secret_word) * '*'
-    if not give_hint:
-        for k in range(rand):
-            to_string = random.choice(str(secret_word))
-            secret_word = secret_word.replace(to_string, replacer)
+    if give_hint is False:
+        secret_word = len(secret_word) * '*'
+    for k in range(rand):
+        to_string = random.choice(str(secret_word))
+        secret_word = secret_word.replace(to_string, replacer)
     return secret_word
 
 random_words_bank = get_random_word()
@@ -73,6 +73,7 @@ while start < stop:
             break
     elif guess in secret_text:
         print(f"Guess is already among secret character. {stop-start} chances left")
+        start = start
     else:
         if guess in random_words_bank:
             print(f"Hurray, you just got a guess!!! {stop-start} chances left")
