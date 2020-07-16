@@ -66,13 +66,16 @@ while start < stop:
     start += 1
     if guess not in random_words_bank:
         message = f"'{guess}' doesnt match any character in the secret word"
-        message += f"You have {stop-start} chances left"
+        message += f"\tYou have {stop-start} chances left"
         print(message)
+        if start == stop:
+            print(f"Game stopped as you didnt hit the target after {stop} trials")
+            break
     elif guess in secret_text:
         print(f"Guess is already among secret character. {stop-start} chances left")
     else:
         if guess in random_words_bank:
-            print("Hurray, you just got a guess")
+            print(f"Hurray, you just got a guess!!! {stop-start} chances left")
             for k, v in enumerate(random_words_bank):
                 if random_words_bank[k] == guess:
                     unscramble_secret[k] = guess
@@ -82,5 +85,3 @@ while start < stop:
                 print(f"Game successfully won after {start} trial")
                 print("Secret word was %s" % random_words_bank)
                 break
-        else:
-            print(f"Game stopped as you didnt hit the target after {stop} trials")
