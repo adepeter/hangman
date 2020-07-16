@@ -3,14 +3,17 @@ from typing import Any, List
 
 
 def to_string(list_obj: List) -> str:
+    # convert a list to a string
     return ''.join(list_obj)
 
 
 def to_list(string_obj: str) -> List:
+    # convert a string to list
     return list(string_obj)
 
 
 def get_random_word() -> str:
+    # return a random shuffle of any word in the list to kick up game
     secret_words = [
         "oluwaseun",
         "peter",
@@ -24,11 +27,19 @@ def get_random_word() -> str:
     return random.choice(secret_words)
 
 
-def obfuscate_secret(secret_word: str, replacer: str="*") -> str:
+def obfuscate_secret(secret_word: str, give_hint: bool=True, replacer: str="*") -> str:
+    """Use random module to strip out some letters from secret word.
+    Returns an obfuscated word
+    which hidden characters can be replaced in replacer parameter
+    EG of returned secret could contain a mixture of letters and secrets
+    Or totally hidden.
+    """
     rand = random.randint(1, len(secret_word))
-    for k in range(rand):
-        to_string = random.choice(str(secret_word))
-    secret_word = secret_word.replace(to_string, replacer)
+    secret_word = len(secret_word) * '*'
+    if not give_hint:
+        for k in range(rand):
+            to_string = random.choice(str(secret_word))
+            secret_word = secret_word.replace(to_string, replacer)
     return secret_word
 
 random_words_bank = get_random_word()
@@ -65,6 +76,7 @@ while start < stop:
             for k, v in enumerate(random_words_bank):
                 if random_words_bank[k] == guess:
                     unscramble_secret[k] = guess
+                    print('Hint: %s' % to_string(unscramble_secret))
             if "*" not in unscramble_secret and \
                     (to_string(unscramble_secret) == random_words_bank):
                 print(f"Game successfully won after {start} trial")
